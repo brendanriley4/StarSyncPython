@@ -1,5 +1,7 @@
 import numpy as np
 from scipy.optimize import least_squares
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 
 # Function to handle incoming data
@@ -97,3 +99,26 @@ def apply_calibration(mag_data, translation, correction_matrix):
     corrected_data = correction_matrix @ corrected_data
     return corrected_data
 
+
+def plot_data(original_data, calibrated_data, original_label='Original Data', calibrated_label='Calibrated Data'):
+    fig = plt.figure(figsize=(12, 6))
+
+    # Plot original data
+    ax1 = fig.add_subplot(121, projection='3d')
+    ax1.scatter(original_data[0], original_data[1], original_data[2], color='red', label=original_label)
+    ax1.set_title('Original Ellipsoid Data')
+    ax1.set_xlabel('X')
+    ax1.set_ylabel('Y')
+    ax1.set_zlabel('Z')
+    ax1.legend()
+
+    # Plot calibrated data
+    ax2 = fig.add_subplot(122, projection='3d')
+    ax2.scatter(calibrated_data[0], calibrated_data[1], calibrated_data[2], color='blue', label=calibrated_label)
+    ax2.set_title('Calibrated Sphere Data')
+    ax2.set_xlabel('X')
+    ax2.set_ylabel('Y')
+    ax2.set_zlabel('Z')
+    ax2.legend()
+
+    plt.show()
