@@ -87,26 +87,23 @@ class Magnetometer(object):
 
 def plot_magnetometer_data(original_data, calibrated_data, original_title="Original Data", calibrated_title="Calibrated Data"):
     # Create a new figure
-    fig = plt.figure(figsize=(14, 7))
+    fig = plt.figure(figsize=(10, 8))
+    ax = fig.add_subplot(111, projection='3d')  # 1 row, 1 column, 1st subplot
 
     # Plot the original data
-    ax1 = fig.add_subplot(121, projection='3d')  # 1 row, 2 columns, 1st subplot
-    ax1.scatter(original_data[:, 0], original_data[:, 1], original_data[:, 2], color='red', label='Original')
-    ax1.set_title(original_title)
-    ax1.set_xlabel('X')
-    ax1.set_ylabel('Y')
-    ax1.set_zlabel('Z')
-    ax1.legend()
+    ax.scatter(original_data[:, 0], original_data[:, 1], original_data[:, 2], color='red', label=original_title)
 
     # Plot the calibrated data
-    ax2 = fig.add_subplot(122, projection='3d')  # 1 row, 2 columns, 2nd subplot
-    ax2.scatter(calibrated_data[:, 0], calibrated_data[:, 1], calibrated_data[:, 2], color='green', label='Calibrated')
-    ax2.set_title(calibrated_title)
-    ax2.set_xlabel('X')
-    ax2.set_ylabel('Y')
-    ax2.set_zlabel('Z')
-    ax2.legend()
+    ax.scatter(calibrated_data[:, 0], calibrated_data[:, 1], calibrated_data[:, 2], color='green', label=calibrated_title)
+
+    # Set titles and labels
+    ax.set_title("Magnetometer Data")
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+
+    # Show the legend
+    ax.legend()
 
     # Show the plot
     plt.show()
-
